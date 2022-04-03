@@ -39,7 +39,7 @@ void Mesh::readGMSH(std::ifstream & mesh_file)
 				readPoints(mesh_file);
 
 			if (msh_line.compare(elements_start) == 0)
-				std::cout << "Elements" << std::endl;
+				readElements(mesh_file);
 
 			if (std::regex_match(msh_line, base_match, end_regex))
 				std::cout << "End" << std::endl;
@@ -76,4 +76,57 @@ void Mesh::readPoints(std::ifstream& mesh_file)
 	}
 
 	std::cout << "Nodes control sum: " << nodes.size() - nodes_num << std::endl;
+}
+
+void Mesh::readElements(std::ifstream& mesh_file)
+{
+	std::string msh_line;
+	std::regex end_regex("\\$End([A-Z]+[a-z]+)*");
+	std::smatch base_match;
+
+	int elements_num, tmp_num;
+	int points_ctr = 0;
+	std::vector<int> element_def;
+
+	getline(mesh_file, msh_line);
+	std::stringstream element_stream(msh_line);
+	element_stream >> elements_num;
+
+	while (getline(mesh_file, msh_line))
+	{
+		if (std::regex_match(msh_line, base_match, end_regex))
+			break;
+
+		std::stringstream element_stream(msh_line);
+		while (element_stream)
+		{
+			element_stream >> tmp_num;
+			element_def.push_back(tmp_num);
+		}
+
+		if (element_def[1] == 1) // line
+			elements.push_back(Line(element_def));
+		else if (element_def[1] == 2) // triangle
+			elements.push_back(Triangle(element_def));
+		else if (element_def[1] == 3) // quad
+		{
+		}
+		else if (element_def[1] == 4) // tetrahedron
+		{
+		}
+		else if (element_def[1] == 5) // hexahedron
+		{
+		}
+		else if (element_def[1] == 15) // point
+		{
+			points_ctr++;
+		}
+		else
+			std::cout << "Mesh contains elements not available in Bifrost !" << std::endl;
+		
+
+		element_def.clear();
+	}
+
+	std::cout << "Elements control sum: " << elements.size() + points_ctr - elements_num << std::endl;
 }

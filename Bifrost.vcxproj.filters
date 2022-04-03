@@ -13,18 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Pliki źródłowe\src">
+      <UniqueIdentifier>{86e529dd-28a1-4874-afa2-96283df0770d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\src\Mesh">
+      <UniqueIdentifier>{ecc28185-069c-4f92-b855-d465932470a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\src">
+      <UniqueIdentifier>{d6c6c68c-b2ad-4054-a2d8-1a3a9926de7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\src\Mesh">
+      <UniqueIdentifier>{286aab2b-fdd4-488d-8f8e-0ed99aa7920a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bifrost.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="src\Mesh\Element.cpp">
+      <Filter>Pliki źródłowe\src\Mesh</Filter>
+    </ClCompile>
     <ClCompile Include="src\Mesh\Mesh.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\src\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mesh\Line.cpp">
+      <Filter>Pliki źródłowe\src\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mesh\Triangle.cpp">
+      <Filter>Pliki źródłowe\src\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Mesh\Element.h">
+      <Filter>Pliki nagłówkowe\src\Mesh</Filter>
+    </ClInclude>
     <ClInclude Include="src\Mesh\Mesh.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Pliki nagłówkowe\src\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh\Line.h">
+      <Filter>Pliki nagłówkowe\src\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh\Triangle.h">
+      <Filter>Pliki nagłówkowe\src\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,6 +5,9 @@
 #include <iostream>
 #include <fstream>
 #include <regex>
+#include "Element.h"
+#include "Line.h"
+#include "Triangle.h"
 
 struct Point {
 	double x, y, z;
@@ -22,9 +25,11 @@ class Mesh {
 	void readGMSH(std::ifstream& mesh_file);
 
 	void readPoints(std::ifstream& mesh_file);
+	void readElements(std::ifstream& mesh_file);
 
 public:
 	std::vector<Point> nodes;
+	std::vector<Element> elements;
 
 	Mesh(std::string file_name);
 	~Mesh();
