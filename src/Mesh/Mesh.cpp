@@ -4,14 +4,14 @@
 
 Mesh::Mesh(std::string file_name)
 {
+	
 	std::ifstream mesh_file;
 	
 	mesh_file.open(file_name);
-
-	
 	readGMSH(mesh_file);
-
 	mesh_file.close();
+
+
 }
 
 
@@ -33,7 +33,7 @@ void Mesh::readGMSH(std::ifstream & mesh_file)
 		while (getline(mesh_file, msh_line))
 		{
 			if (msh_line.compare(physical_names_start) == 0)
-				std::cout << "Physical names" << std::endl;
+				readPhysicalEntities(mesh_file);
 
 			if (msh_line.compare(nodes_start) == 0)
 				readPoints(mesh_file);
@@ -47,6 +47,38 @@ void Mesh::readGMSH(std::ifstream & mesh_file)
 	}
 }
 
+void Mesh::readPhysicalEntities(std::ifstream& mesh_file)
+{
+	std::string msh_line;
+	std::regex end_regex("\\$End([A-Z]+[a-z]+)*");
+	std::smatch base_match;
+
+	int physical_dim, physical_tag, physical_ent_num;
+	int max_physical_dim = 0;
+	std::string physical_name_;
+
+	getline(mesh_file, msh_line);
+	std::stringstream coord_stream(msh_line);
+	coord_stream >> physical_ent_num;
+
+	while (getline(mesh_file, msh_line))
+	{
+		if (std::regex_match(msh_line, base_match, end_regex))
+			break;
+
+		std::stringstream coord_stream(msh_line);
+		coord_stream >> physical_dim;
+		coord_stream >> physical_tag;
+		coord_stream >> physical_name_;
+
+		physical_entities.push_back(PhysicalEntity(physical_tag, physical_name_));
+
+		if (physical_dim > max_physical_dim)
+			max_physical_dim = physical_dim;
+	}
+	mesh_dim = max_physical_dim;
+	std::cout << "Physical entities control sum: " << physical_entities.size() - physical_ent_num << std::endl;
+}
 
 void Mesh::readPoints(std::ifstream& mesh_file)
 {
@@ -105,11 +137,25 @@ void Mesh::readElements(std::ifstream& mesh_file)
 		}
 
 		if (element_def[1] == 1) // line
-			elements.push_back(Line(element_def));
+		{
+			if (mesh_dim == 2)
+				boundary_elements.push_back(Line(element_def));
+		}
 		else if (element_def[1] == 2) // triangle
-			elements.push_back(Triangle(element_def));
+		{
+			Triangle triangle_tmp(element_def);
+			if (mesh_dim == 2)
+				internal_elements.push_back(Cell(triangle_tmp));
+			else
+				boundary_elements.push_back(Triangle(element_def));
+		}
 		else if (element_def[1] == 3) // quad
 		{
+			Quad quad_tmp(element_def);
+			if (mesh_dim == 2)
+				internal_elements.push_back(Cell(quad_tmp));
+			else
+				boundary_elements.push_back(Quad(element_def));
 		}
 		else if (element_def[1] == 4) // tetrahedron
 		{
@@ -128,5 +174,10 @@ void Mesh::readElements(std::ifstream& mesh_file)
 		element_def.clear();
 	}
 
-	std::cout << "Elements control sum: " << elements.size() + points_ctr - elements_num << std::endl;
+	std::cout << "Elements control sum: " << internal_elements.size() + boundary_elements.size() + points_ctr - elements_num << std::endl;
+}
+
+void Mesh::initFaces()
+{
+
 }

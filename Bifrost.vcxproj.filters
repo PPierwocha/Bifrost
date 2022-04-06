@@ -25,12 +25,15 @@
     <Filter Include="Pliki nagłówkowe\src\Mesh">
       <UniqueIdentifier>{286aab2b-fdd4-488d-8f8e-0ed99aa7920a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki zasobów\data">
+      <UniqueIdentifier>{7d2235f5-51dc-4285-b3d9-9bd170903915}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bifrost.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="src\Mesh\Element.cpp">
+    <ClCompile Include="src\Mesh\Shape.cpp">
       <Filter>Pliki źródłowe\src\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="src\Mesh\Mesh.cpp">
@@ -42,9 +45,15 @@
     <ClCompile Include="src\Mesh\Triangle.cpp">
       <Filter>Pliki źródłowe\src\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="src\Mesh\Quad.cpp">
+      <Filter>Pliki źródłowe\src\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mesh\Cell.cpp">
+      <Filter>Pliki źródłowe\src\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Mesh\Element.h">
+    <ClInclude Include="src\Mesh\Shape.h">
       <Filter>Pliki nagłówkowe\src\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="src\Mesh\Mesh.h">
@@ -56,5 +65,16 @@
     <ClInclude Include="src\Mesh\Triangle.h">
       <Filter>Pliki nagłówkowe\src\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="src\Mesh\Quad.h">
+      <Filter>Pliki nagłówkowe\src\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh\Cell.h">
+      <Filter>Pliki nagłówkowe\src\Mesh</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\square.msh">
+      <Filter>Pliki zasobów\data</Filter>
+    </None>
   </ItemGroup>
 </Project>

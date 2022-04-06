@@ -1,6 +1,6 @@
 #pragma once
-#include "Element.h"
-class Triangle : public Element
+#include "Shape.h"
+class Triangle : public Shape
 {
 
 public:
